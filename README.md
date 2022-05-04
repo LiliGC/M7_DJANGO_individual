@@ -1,0 +1,1 @@
+# M7_DJANGO_individual
