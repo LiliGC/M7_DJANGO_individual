@@ -1,0 +1,10 @@
+.h1 {
+    font-family: 'Open Sans', sans-serif;
+    font-size: medium;
+    color: antiquewhite;
+    font-size: 30;
+}
+
+.asteriskField {
+    display: none;
+}
