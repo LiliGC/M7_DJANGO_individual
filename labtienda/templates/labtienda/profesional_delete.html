@@ -1,0 +1,36 @@
+{% extends "./index.html" %}
+
+{% block title %}<title>Eliminar Profesionales</title>{% endblock %} 
+{% load crispy_forms_tags %} 
+{% block content %}
+
+    <div class="row text center">
+        <div class="col-sm-12 p-3 border" style="background-color: #ebebfa">
+            <h3>Eliminar Profesionales</h3>
+            <br> 
+            <div class="col-sm-6 p-3 border" style="background-color: #ebebfa">
+                <form method="post"> 
+                    {% csrf_token %} 
+
+                    {{form|crispy}} 
+
+                <input class="btn btn-primary" type="submit" value="Eliminar" /> 
+                </form>
+            {% block additionaljs %}
+                {% if messages %}
+                <script>
+                    {% for message in messages %}
+                        {% if message.success %} class="{{ message.success}}"{% endif %}
+                            Swal.fire({
+                                title: 'Felicitaciones',
+                                text: '{{message}} ',
+                                icon: 'success'
+                            });
+                    {% endfor %}
+                </script>   
+                {% endif %} 
+            {% endblock %}    
+            </div>    
+        </div>
+    </div>
+{% endblock %}

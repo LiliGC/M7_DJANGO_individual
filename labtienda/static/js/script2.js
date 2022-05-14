@@ -1,5 +1,9 @@
 $(document).ready(function() {
     $('#clientes').DataTable({
+        dom: 'Bfrtip',
+        buttons: [
+            'copy', 'csv', 'excel', 'pdf', 'print'
+        ],
         language: {
             "decimal": "",
             "emptyTable": "No hay datos",

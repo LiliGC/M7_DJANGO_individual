@@ -1,5 +1,5 @@
 from django import forms
-from .models import Client
+from .models import Client, Professional
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
@@ -10,6 +10,12 @@ class ClienteForm(forms.ModelForm):
     class Meta:
         model = Client
         fields = ('ci','name','last_name', 'birth_date', 'phone', 'email', 'address')
+
+class ProfessionalForm(forms.ModelForm):
+
+	class Meta:
+		model = Professional
+		fields=('title','name', 'last_name', 'ci', 'birth_date', 'phone', 'email', 'address', 'registration_date')
 
 
 class NewUserForm(UserCreationForm):

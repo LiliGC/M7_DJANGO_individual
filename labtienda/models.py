@@ -21,12 +21,12 @@ class User(models.Model):
 
 class Client(User):
     ci=models.CharField(max_length=10, unique=True, verbose_name= 'Run o Rut', help_text = "Usa el siguiente formato: <em>xxxxxxxx-x o xxxxxxxx-x</em>.")
-
+    
 class Professional(User):
     title=models.CharField(max_length=50,verbose_name= 'Título')
     ci=models.CharField(max_length=10, unique=True, verbose_name= 'Run')
     registration_date=models.DateField(default=datetime.date.today, verbose_name= 'Fecha de registro')
-
+    
 
 
 

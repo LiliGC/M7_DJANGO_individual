@@ -28,6 +28,8 @@
                                 <th scope="col">Correo electrónico</th> 
 
                                 <th scope="col">Dirección</th> 
+
+                                <th scope="col">Opciones</th>
         
                             </tr> 
         
@@ -51,7 +53,12 @@
 
                                 <td>{{ cli.email }}</td> 
                                 
-                                <td>{{ cli.address }}</td>   
+                                <td>{{ cli.address }}</td> 
+                                
+                                <td>
+                                    <a href= "{% url 'cliente_edit'  cli.pk %}" class="btn btn-info">Editar</a> 
+                                    <a href= "{% url 'cliente_delete' cli.pk %}" class="btn btn-danger">Eliminar</a> </td> 
+        
         
                             </tr> 
         
@@ -61,7 +68,7 @@
         
                     </table> 
         
-                    <a href= {% url 'registro' %}>Agregar cliente</a> 
+                    <a href= "{% url 'registro' %}" class="btn btn-info">Agregar cliente</a> 
                 </div> 
         
         </div> 
