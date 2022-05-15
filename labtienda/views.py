@@ -140,7 +140,7 @@ def cliente_edit(request,pk):
             cliente = form.save(commit=False)
             cliente.save()
             messages.success(request, 'El cliente se ha modificado con éxito')
-            return redirect('usuarios')
+            return redirect('clientes')
     else:
         form = ClienteForm(instance=cliente)
     return render(request, 'labtienda/cliente_edit.html', {'form': form})
@@ -151,7 +151,7 @@ def cliente_delete(request,pk):
     cliente = get_object_or_404(Client, pk=pk)
     cliente.delete()
     messages.success(request, 'El cliente se ha eliminado con exito')        
-    return redirect('usuarios')
+    return redirect('clientes')
 
 
 def register_user(request):
