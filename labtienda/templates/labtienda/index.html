@@ -54,10 +54,12 @@
                             <a class="nav-link btn btn-link btn-block border-bottom m-0" href="{% url 'index' %}" >Productos</a>
                             <a class="nav-link btn btn-link btn-block border-bottom m-0"href="{% url 'clientes' %}">Clientes</a>
                             <a class="nav-link btn btn-link btn-block border-bottom m-0" href="{% url 'profesional' %}" >Profesionales</a>
+                            <a class="nav-link btn btn-link btn-block border-bottom m-0" href="{% url 'comentario' %}" >Contáctanos</a>
                             <a class="nav-link btn btn-link btn-block border-bottom m-0"href="{% url 'logout' %}">Salir</a>
                         {% else %}
                             <a class="nav-link btn btn-link btn-block m-0"href="{% url 'login' %}">Iniciar sesión</a>
                             <a class="nav-link btn btn-link btn-block m-0"href="{% url 'register_user' %}">Crear cuenta</a>
+                            <a class="nav-link btn btn-link btn-block border-bottom m-0" href="{% url 'comentario' %}" >Contáctanos</a>
                         {% endif %}
                     </div>
                 </div>   

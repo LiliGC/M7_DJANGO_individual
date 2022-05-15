@@ -28,6 +28,22 @@ class Professional(User):
     registration_date=models.DateField(default=datetime.date.today, verbose_name= 'Fecha de registro')
     
 
+consultas=[
+    [0, 'consulta'],
+    [1, 'reclamo'],
+    [2, 'sugerencia'],
+    [3, 'felicitaciones']
+]
+
+class Comentario(models.Model):
+    nombre= models.CharField(max_length=30)
+    correo_electronico=models.EmailField(max_length=30)
+    tipo_consulta=models.IntegerField(choices=consultas)
+    mensaje=models.TextField()
+
+    def __str__(self): 
+        return self.nombre
+
 
 
 

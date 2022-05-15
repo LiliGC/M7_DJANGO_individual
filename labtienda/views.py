@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Client, Professional
-from .forms import ClienteForm,ProfessionalForm
+from .models import Client, Professional, Comentario
+from .forms import ClienteForm,ProfessionalForm, ComentarioForm
 from .forms import NewUserForm
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
@@ -61,17 +61,17 @@ def registro_cliente(request):
             cliente.address=form.cleaned_data["address"]
             cliente.save()
             messages.success(request, 'Los datos han sido guardados satisfactoriamente') 
-            return redirect('registro') 
+            return redirect('clientes') 
 
         else: messages.error(request,'Inválido') 
 
-        return redirect('registro') 
+        return redirect('cliente_registro') 
 
     else: 
 
         form=ClienteForm()  
 
-        return render(request, 'labtienda/registro.html', {"form":form}) 
+        return render(request, 'labtienda/cliente_registro.html', {"form":form}) 
 
 @staff_member_required
 @login_required
@@ -107,6 +107,7 @@ def registro_professional(request):
 
         return render(request, 'labtienda/registro_profesional.html', {"form":form}) 
 
+@staff_member_required
 @login_required
 def profesional_edit(request,pk):
     profesional = get_object_or_404(Professional, pk=pk)
@@ -121,6 +122,7 @@ def profesional_edit(request,pk):
         form = ProfessionalForm(instance=profesional)
     return render(request, 'labtienda/profesional_edit.html', {'form': form})
 
+@staff_member_required
 @login_required
 def profesional_delete(request,pk):
     profesional = get_object_or_404(Professional, pk=pk)
@@ -128,6 +130,7 @@ def profesional_delete(request,pk):
     messages.success(request, 'El profesional se ha eliminado con exito')        
     return redirect('profesional')
 
+@staff_member_required
 @login_required
 def cliente_edit(request,pk):
     cliente = get_object_or_404(Client, pk=pk)
@@ -142,6 +145,7 @@ def cliente_edit(request,pk):
         form = ClienteForm(instance=cliente)
     return render(request, 'labtienda/cliente_edit.html', {'form': form})
 
+@staff_member_required
 @login_required
 def cliente_delete(request,pk):
     cliente = get_object_or_404(Client, pk=pk)
@@ -185,3 +189,59 @@ def logout_user(request):
 	logout(request)
 	messages.info(request, "Haz cerrado sesión exitosamente.") 
 	return redirect('index')
+
+
+def comentario(request):
+
+    form=ComentarioForm()
+
+    if request.method == 'POST':
+		
+        form = ComentarioForm(request.POST)
+
+        if form.is_valid():
+            comentario=Comentario()
+            comentario.nombre=form.cleaned_data["nombre"]
+            comentario.correo_electronico=form.cleaned_data["correo_electronico"]
+            comentario.tipo_consulta=form.cleaned_data["tipo_consulta"]
+            comentario.mensaje=form.cleaned_data["mensaje"]
+            comentario.save()
+            messages.success(request, 'Su  mensaje ha sido enviado satisfactoriamente')
+        else: messages.error('Inválido')
+        return redirect('index')
+    else:
+        form=ComentarioForm() 
+        return render(request, 'labtienda/comentario.html', {"form":form}) 
+
+@login_required
+def listacomentarios(request):
+
+    comentarios=Comentario.objects.all()
+
+    context = { 
+
+    'comentarios': comentarios, 
+
+    } 
+    return render(request,'labtienda/listacomentarios.html', context)
+
+@login_required
+def comentario_edit(request,pk):
+    comentario = get_object_or_404(Comentario, pk=pk)
+    if request.method == "POST":
+        form = ComentarioForm(request.POST, instance=comentario)
+        if form.is_valid():
+            comentario = form.save(commit=False)
+            comentario.save()
+            messages.success(request, 'Su mensaje se ha modificado con éxito')
+            return redirect('listacomentarios')
+    else:
+        form = ComentarioForm(instance=comentario)
+    return render(request, 'labtienda/comentario_edit.html', {'form': form})
+
+@login_required
+def comentario_delete(request,pk):
+    comentario = get_object_or_404(Comentario, pk=pk)
+    comentario.delete()
+    messages.warning(request, 'Esta seguro que desea eliminar su mensaje?')        
+    return redirect('listacomentarios')

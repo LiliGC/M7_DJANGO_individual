@@ -1,5 +1,5 @@
 from django import forms
-from .models import Client, Professional
+from .models import Client, Professional, Comentario
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
@@ -31,3 +31,8 @@ class NewUserForm(UserCreationForm):
 		if commit:
 			user.save()
 		return user
+
+class ComentarioForm(forms.ModelForm):
+    class Meta:
+        model=Comentario
+        fields=['nombre', 'correo_electronico', 'tipo_consulta', 'mensaje']    
